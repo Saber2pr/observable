@@ -1,4 +1,4 @@
-# saber-Observable
+# saber-observable
 
 ```bash
 npm install
