@@ -1,9 +1,7 @@
 # saber-observable
 
 ```bash
-npm install
-
-npm start
+npm install saber-observable
 ```
 
 > run ts in browser
