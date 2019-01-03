@@ -1,8 +1,8 @@
 {
   "name": "saber-observable",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "container of state",
-  "main": "./build/index.js",
+  "main": "./lib/index.js",
   "scripts": {
     "start": "tsc --watch"
   },

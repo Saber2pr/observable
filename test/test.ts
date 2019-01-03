@@ -1,4 +1,4 @@
-import { Observable } from '../lib/Observable'
+import { Observable } from '../src/core/Observable'
 
 let observable = new Observable({ value: '' })
 
