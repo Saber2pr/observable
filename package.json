@@ -1,12 +1,16 @@
 {
-  "name": "ts-vscode",
+  "name": "saber-observable",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "container of state",
+  "main": "./build/index.js",
   "scripts": {
     "start": "tsc --watch"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Saber2pr/saber-observable.git"
+  },
+  "author": "saber2pr",
   "license": "ISC",
   "devDependencies": {
     "typescript": "^3.2.1"
