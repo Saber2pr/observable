@@ -60,11 +60,28 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+__export(__webpack_require__(1));
+// import { Observable } from './core/Observable'
+// new Observable({ value: 100 })
+//   .pipe(state => ({ value: state.value + 233 }))
+//   .subscribe(state => console.log(state))
+
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -223,23 +240,6 @@ var Observable = /** @class */ (function () {
     return Observable;
 }());
 exports.Observable = Observable;
-
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(0));
-var Observable_1 = __webpack_require__(0);
-new Observable_1.Observable({ value: 100 })
-    .pipe(function (state) { return ({ value: state.value + 233 }); })
-    .subscribe(function (state) { return console.log(state); });
 
 
 /***/ })
