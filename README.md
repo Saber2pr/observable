@@ -4,8 +4,6 @@
 npm install saber-observable
 ```
 
-> run ts in browser
-
 > container of state
 
 ```ts
