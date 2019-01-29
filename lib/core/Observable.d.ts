@@ -61,6 +61,13 @@ export declare class Observable<T = any> {
      */
     pipe(...funcs: Array<(...args: T[]) => T>): this;
     /**
+     * getState
+     *
+     * @returns {T}
+     * @memberof Observable
+     */
+    getState(): T;
+    /**
      * push
      *
      * @param {T} state

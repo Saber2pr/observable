@@ -2,7 +2,7 @@
  * @Author: AK-12
  * @Date: 2018-12-29 18:55:04
  * @Last Modified by: AK-12
- * @Last Modified time: 2018-12-29 20:43:30
+ * @Last Modified time: 2019-01-29 14:17:19
  */
 /**
  * compose
@@ -90,6 +90,15 @@ export class Observable<T = any> {
       this.state = state
     })
     return this
+  }
+  /**
+   * getState
+   *
+   * @returns {T}
+   * @memberof Observable
+   */
+  public getState(): T {
+    return this.state
   }
   /**
    * push
