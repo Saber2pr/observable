@@ -42,7 +42,7 @@ export function clone<T>(value: T): T {
  * @template T
  */
 export interface Observer<T> {
-  (state: T): void
+  (state: T, preState: T): void
 }
 export interface UnSubscribe<T> {
   (): Observer<T>[]
@@ -86,8 +86,8 @@ export class Observable<T = any> {
    */
   public pipe(...funcs: Array<(...args: T[]) => T>) {
     !(async () => compose(...funcs.reverse())(this.state))().then(state => {
+      this.observers.forEach(observer => observer(state, this.state))
       this.state = state
-      this.observers.forEach(observer => observer(this.state))
     })
     return this
   }

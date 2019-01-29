@@ -24,7 +24,7 @@ export declare function clone<T>(value: T): T;
  * @template T
  */
 export interface Observer<T> {
-    (state: T): void;
+    (state: T, preState: T): void;
 }
 export interface UnSubscribe<T> {
     (): Observer<T>[];

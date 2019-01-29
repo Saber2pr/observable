@@ -1,6 +1,6 @@
 {
   "name": "saber-observable",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "container of state",
   "repository": {
     "type": "git",
@@ -11,8 +11,7 @@
   "main": "./lib/index.js",
   "scripts": {
     "start": "tsc --watch",
-    "pack": "webpack",
-    "dev": "nodemon"
+    "test": "node ./lib/test/test.js"
   },
   "devDependencies": {
     "nodemon": "^1.18.9",
