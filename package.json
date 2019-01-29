@@ -1,6 +1,6 @@
 {
   "name": "saber-observable",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "container of state",
   "repository": {
     "type": "git",
