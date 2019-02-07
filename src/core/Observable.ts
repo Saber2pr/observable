@@ -98,7 +98,7 @@ export class Observable<T = any> {
    * @memberof Observable
    */
   public getState(): T {
-    return this.state
+    return clone(this.state)
   }
   /**
    * push
