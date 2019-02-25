@@ -24,17 +24,6 @@ export function compose<argType>(
   return funcs.reduce((a, b) => (...args) => a(b(...args)))
 }
 /**
- * clone
- *
- * @export
- * @template T
- * @param {T} value
- * @returns {T}
- */
-export function clone<T>(value: T): T {
-  return JSON.parse(JSON.stringify(value))
-}
-/**
  * Observer
  *
  * @export
@@ -98,7 +87,7 @@ export class Observable<T = any> {
    * @memberof Observable
    */
   public getState(): T {
-    return clone(this.state)
+    return this.state
   }
   /**
    * push
@@ -106,16 +95,7 @@ export class Observable<T = any> {
    * @param {T} state
    * @memberof Observable
    */
-  public push(state: T) {
-    return this.pipe(() => clone(state))
-  }
-  /**
-   * pull
-   *
-   * @returns {T}
-   * @memberof Observable
-   */
-  public pull(): T {
-    return clone(this.state)
+  public setState(state: T) {
+    return this.pipe(() => state)
   }
 }
