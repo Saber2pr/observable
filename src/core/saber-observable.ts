@@ -95,7 +95,7 @@ export class Observable<S extends Object> {
    * @returns
    * @memberof Observable
    */
-  public dispatch(nextState: S) {
+  public dispatch(nextState: S = this.getState()) {
     this.observers.forEach(observer => observer(nextState, this.getState()))
     this.state = Object.assign({}, nextState)
     return this
