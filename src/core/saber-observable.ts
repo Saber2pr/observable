@@ -28,41 +28,41 @@ export function compose<argType>(
  *
  * @export
  * @interface Observer
- * @template T
+ * @template S
  */
-export interface Observer<T> {
-  (state: T, preState: T): void
+export interface Observer<S> {
+  (state: S, preState: S): void
 }
-export interface UnSubscribe<T> {
-  (): Observer<T>[]
+export interface UnSubscribe<S> {
+  (): Observer<S>[]
 }
 /**
  * Observable
  *
  * @export
  * @class Observable
- * @template T
+ * @template S
  */
-export class Observable<T = any> {
+export class Observable<S = any> {
   /**
    *Creates an instance of Observable.
-   * @param {T} state
+   * @param {S} state
    * @memberof Observable
    */
-  constructor(state: T) {
+  constructor(state: S) {
     this.state = state
-    this.observers = new Array<Observer<T>>()
+    this.observers = new Array<Observer<S>>()
   }
-  protected state: T
-  private observers: Array<Observer<T>>
+  protected state: S
+  private observers: Array<Observer<S>>
   /**
    * subscribe
    *
-   * @param {Observer<T>} observer
-   * @returns {UnSubscribe<T>}
+   * @param {Observer<S>} observer
+   * @returns {UnSubscribe<S>}
    * @memberof Observable
    */
-  public subscribe(observer: Observer<T>): UnSubscribe<T> {
+  public subscribe(observer: Observer<S>): UnSubscribe<S> {
     this.observers.push(observer)
     return () =>
       (this.observers = this.observers.filter(obser => obser !== observer))
@@ -70,10 +70,10 @@ export class Observable<T = any> {
   /**
    * pipe
    *
-   * @param {...Array<(...args: T[]) => T>} funcs
+   * @param {...Array<(...args: S[]) => S>} funcs
    * @memberof Observable
    */
-  public pipe(...funcs: Array<(...args: T[]) => T>) {
+  public pipe(...funcs: Array<(...args: S[]) => S>) {
     !(async () => compose(...funcs.reverse())(this.state))().then(state => {
       this.observers.forEach(observer => observer(state, this.state))
       this.state = state
@@ -83,19 +83,19 @@ export class Observable<T = any> {
   /**
    * getState
    *
-   * @returns {T}
+   * @returns {S}
    * @memberof Observable
    */
-  public getState(): T {
+  public getState(): S {
     return this.state
   }
   /**
    * push
    *
-   * @param {T} state
+   * @param {S} state
    * @memberof Observable
    */
-  public setState(state: T) {
-    return this.pipe(() => state)
+  public setState<K extends keyof S>(state: Pick<S, K>) {
+    return this.pipe(() => Object.assign(this.state, state))
   }
 }

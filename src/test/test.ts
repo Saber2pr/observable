@@ -1,14 +1,10 @@
-import { Observable } from '../core/Observable'
+import { Observable } from '../core/saber-observable'
 
-let obs = new Observable({ value: 100 }).pipe(state => ({
-  value: state.value + 233
-}))
+const observable$ = new Observable({
+  age: 233,
+  name: 'saber'
+})
 
-new Promise(resolve => {
-  obs.subscribe((state, pre) => {
-    console.log(state, pre)
-    resolve()
-  })
-}).then(() => console.log('then', obs.getState()))
+observable$.subscribe(s => console.log(s))
 
-console.log(obs.getState())
+observable$.setState({ age: 100 })

@@ -1,1 +1,1 @@
-export * from './core/Observable'
+export * from './core/saber-observable'
