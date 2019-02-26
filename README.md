@@ -12,7 +12,9 @@ const observable$ = new Observable({
   name: 'saber'
 })
 
-observable$.subscribe(s => console.log(s))
+observable$.subscribe((s, pre) => console.log(s, pre))
 
 observable$.setState({ age: 100 })
+
+observable$.setState(s => ({ age: s.age + 1 }))
 ```

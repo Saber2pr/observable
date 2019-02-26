@@ -43,14 +43,14 @@ export interface UnSubscribe<S> {
  * @class Observable
  * @template S
  */
-export class Observable<S = any> {
+export class Observable<S extends Object> {
   /**
    *Creates an instance of Observable.
    * @param {S} state
    * @memberof Observable
    */
   constructor(state: S) {
-    this.state = state
+    this.state = Object.assign({}, state)
     this.observers = new Array<Observer<S>>()
   }
   protected state: S
@@ -59,13 +59,23 @@ export class Observable<S = any> {
    * subscribe
    *
    * @param {Observer<S>} observer
-   * @returns {UnSubscribe<S>}
+   * @returns
    * @memberof Observable
    */
-  public subscribe(observer: Observer<S>): UnSubscribe<S> {
+  public subscribe(observer: Observer<S>) {
     this.observers.push(observer)
-    return () =>
-      (this.observers = this.observers.filter(obser => obser !== observer))
+    return this
+  }
+  /**
+   * unsubscribe
+   *
+   * @param {Observer<S>} observer
+   * @returns
+   * @memberof Observable
+   */
+  public unsubscribe(observer: Observer<S>) {
+    this.observers = this.observers.filter(obser => obser !== observer)
+    return this
   }
   /**
    * pipe
@@ -74,10 +84,20 @@ export class Observable<S = any> {
    * @memberof Observable
    */
   public pipe(...funcs: Array<(...args: S[]) => S>) {
-    !(async () => compose(...funcs.reverse())(this.state))().then(state => {
-      this.observers.forEach(observer => observer(state, this.state))
-      this.state = state
-    })
+    const reducer = compose(...funcs.reverse())
+    const nextState = reducer(this.getState())
+    return this.dispatch(nextState)
+  }
+  /**
+   * dispatch
+   *
+   * @param {S} nextState
+   * @returns
+   * @memberof Observable
+   */
+  public dispatch(nextState: S) {
+    this.observers.forEach(observer => observer(nextState, this.getState()))
+    this.state = Object.assign({}, nextState)
     return this
   }
   /**
@@ -87,7 +107,7 @@ export class Observable<S = any> {
    * @memberof Observable
    */
   public getState(): S {
-    return this.state
+    return Object.assign({}, this.state)
   }
   /**
    * push
@@ -95,7 +115,15 @@ export class Observable<S = any> {
    * @param {S} state
    * @memberof Observable
    */
-  public setState<K extends keyof S>(state: Pick<S, K>) {
-    return this.pipe(() => Object.assign(this.state, state))
+  public setState<K extends keyof S>(
+    state: Pick<S, K> | ((preState: S) => Pick<S, K>)
+  ) {
+    if (typeof state === 'function') {
+      return this.dispatch(
+        Object.assign(this.getState(), state(this.getState()))
+      )
+    } else {
+      return this.dispatch(Object.assign(this.getState(), state))
+    }
   }
 }
