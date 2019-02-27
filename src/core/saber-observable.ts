@@ -51,9 +51,11 @@ export class Observable<S extends Object> {
    */
   constructor(state: S) {
     this.state = Object.assign({}, state)
+    this.initState = Object.assign({}, state)
     this.observers = new Array<Observer<S>>()
   }
   protected state: S
+  protected initState: S
   private observers: Array<Observer<S>>
   /**
    * subscribe
@@ -108,6 +110,15 @@ export class Observable<S extends Object> {
    */
   public getState(): S {
     return Object.assign({}, this.state)
+  }
+  /**
+   * getInitState
+   *
+   * @returns {S}
+   * @memberof Observable
+   */
+  public getInitState(): S {
+    return Object.assign({}, this.initState)
   }
   /**
    * push

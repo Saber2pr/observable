@@ -10,3 +10,5 @@ observable$.subscribe((s, pre) => console.log(s, pre))
 observable$.setState({ age: 100 })
 
 observable$.setState(s => ({ age: s.age + 1 }))
+
+console.log(observable$.getInitState())
