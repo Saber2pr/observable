@@ -33,9 +33,6 @@ export function compose<argType>(
 export interface Observer<S> {
   (state: S, preState: S): void
 }
-export interface UnSubscribe<S> {
-  (): Observer<S>[]
-}
 /**
  * Observable
  *
