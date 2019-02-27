@@ -24,6 +24,12 @@ export function compose<argType>(
   return funcs.reduce((a, b) => (...args) => a(b(...args)))
 }
 /**
+ * clone
+ * `deep`
+ * @param obj
+ */
+export const clone = <T>(obj: T): T => JSON.parse(JSON.stringify(obj))
+/**
  * Observer
  *
  * @export
@@ -47,8 +53,8 @@ export class Observable<S extends Object> {
    * @memberof Observable
    */
   constructor(state: S) {
-    this.state = Object.assign({}, state)
-    this.initState = JSON.parse(JSON.stringify(state))
+    this.state = clone(state)
+    this.initState = clone(state)
     this.observers = new Array<Observer<S>>()
   }
   protected state: S
@@ -96,7 +102,7 @@ export class Observable<S extends Object> {
    */
   public dispatch(nextState: S = this.getState()) {
     this.observers.forEach(observer => observer(nextState, this.getState()))
-    this.state = Object.assign({}, nextState)
+    this.state = clone(nextState)
     return this
   }
   /**
@@ -106,7 +112,7 @@ export class Observable<S extends Object> {
    * @memberof Observable
    */
   public getState(): S {
-    return Object.assign({}, this.state)
+    return clone(this.state)
   }
   /**
    * getInitState
@@ -115,7 +121,7 @@ export class Observable<S extends Object> {
    * @memberof Observable
    */
   public getInitState(): S {
-    return Object.assign({}, this.initState)
+    return clone(this.initState)
   }
   /**
    * push
