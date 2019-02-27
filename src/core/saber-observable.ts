@@ -48,7 +48,7 @@ export class Observable<S extends Object> {
    */
   constructor(state: S) {
     this.state = Object.assign({}, state)
-    this.initState = Object.assign({}, state)
+    this.initState = JSON.parse(JSON.stringify(state))
     this.observers = new Array<Observer<S>>()
   }
   protected state: S
