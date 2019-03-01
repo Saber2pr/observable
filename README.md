@@ -1,5 +1,7 @@
 # saber-observable
 
+[![npm](https://img.shields.io/npm/v/saber-observable.svg)](https://www.npmjs.com/package/saber-observable)
+
 ```bash
 npm install saber-observable
 ```

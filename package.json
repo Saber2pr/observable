@@ -1,11 +1,15 @@
 {
   "name": "saber-observable",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "container of state",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Saber2pr/saber-observable.git"
   },
+  "files": [
+    "lib/core/*",
+    "lib/index.*"
+  ],
   "author": "saber2pr",
   "license": "ISC",
   "main": "./lib/index.js",
