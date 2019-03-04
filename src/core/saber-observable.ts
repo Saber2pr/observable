@@ -1,8 +1,8 @@
 /*
- * @Author: saber2pr 
- * @Date: 2019-03-01 12:41:33 
- * @Last Modified by:   saber2pr 
- * @Last Modified time: 2019-03-01 12:41:33 
+ * @Author: saber2pr
+ * @Date: 2019-03-01 12:41:33
+ * @Last Modified by:   saber2pr
+ * @Last Modified time: 2019-03-01 12:41:33
  */
 /**
  * compose
@@ -53,8 +53,8 @@ export class Observable<S extends Object> {
    * @memberof Observable
    */
   constructor(state: S) {
-    this.state = clone(state)
-    this.initState = clone(state)
+    this.state = Object.freeze(state)
+    this.initState = Object.freeze(state)
     this.observers = new Array<Observer<S>>()
   }
   protected state: S
@@ -102,7 +102,7 @@ export class Observable<S extends Object> {
    */
   public dispatch(nextState: S = this.getState()) {
     this.observers.forEach(observer => observer(nextState, this.getState()))
-    this.state = clone(nextState)
+    this.state = Object.freeze(nextState)
     return this
   }
   /**
@@ -112,7 +112,7 @@ export class Observable<S extends Object> {
    * @memberof Observable
    */
   public getState(): S {
-    return clone(this.state)
+    return this.state
   }
   /**
    * getInitState
@@ -121,7 +121,7 @@ export class Observable<S extends Object> {
    * @memberof Observable
    */
   public getInitState(): S {
-    return clone(this.initState)
+    return this.initState
   }
   /**
    * push
@@ -134,10 +134,10 @@ export class Observable<S extends Object> {
   ) {
     if (typeof state === 'function') {
       return this.dispatch(
-        Object.assign(this.getState(), state(this.getState()))
+        Object.assign(clone(this.getState()), state(this.getState()))
       )
     } else {
-      return this.dispatch(Object.assign(this.getState(), state))
+      return this.dispatch(Object.assign(clone(this.getState()), state))
     }
   }
 }
